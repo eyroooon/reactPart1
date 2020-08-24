@@ -12,7 +12,33 @@ const Header = (props) => {
 
 const Statistic = (props) => {
   return (
-    <p>{props.text}: {props.value}</p>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
+  )
+}
+
+const Statistics = (props) => {
+  if (props.all === 0) {
+    return (<p>No feedback given</p>)
+  }
+  return (
+    <div>
+      <table>
+        <tbody>
+
+          <Statistic text='good' value={props.clicks.good} />
+          <Statistic text='neutral' value={props.clicks.neutral} />
+          <Statistic text='bad' value={props.clicks.bad} />
+          <Statistic text='all' value={props.all} />
+          <Statistic text='average' value={props.avg} />
+          <Statistic text='positive' value={props.positive + " %"} />
+        </tbody>
+
+      </table>
+
+    </div>
   )
 }
 
@@ -29,7 +55,6 @@ const App = () => {
       good: clicks.good + 1
     }
     setClicks(newClicks)
-    console.log(clicks)
   }
 
   const handleSetNeutral = () => {
@@ -38,7 +63,6 @@ const App = () => {
       neutral: clicks.neutral + 1
     }
     setClicks(newClicks)
-    console.log(clicks)
 
   }
 
@@ -48,7 +72,6 @@ const App = () => {
       bad: clicks.bad + 1
     }
     setClicks(newClicks)
-    console.log(clicks)
 
   }
 
@@ -64,12 +87,7 @@ const App = () => {
       <button onClick={handleSetNeutral}>Neutral</button>
       <button onClick={handleSetBad}>Bad</button>
       <Header text='statistic' />
-      <Statistic text='good' value={clicks.good} />
-      <Statistic text='neutral' value={clicks.neutral} />
-      <Statistic text='bad' value={clicks.bad} />
-      <Statistic text='all' value={all} />
-      <Statistic text='average' value={avg} />
-      <Statistic text='positive' value={positive + " %"} />
+      <Statistics clicks={clicks} avg={avg} all={all} positive={positive} />
     </div>
   )
 }
