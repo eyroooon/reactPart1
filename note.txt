@@ -1,0 +1,11 @@
+-In the crash course tutorial they just guiding you what to do. You should search it how some javascript function that I used is working like 'map , filter, reduce, find and many more' manipulating objects and arrays is the most important thing in fullstack programing.
+
+steps when you want to clone and run this app 
+
+1. open git terminal.
+2. mkdir reactjs-learning
+3. cd reactjs-learning
+4. git clone [repository link]
+5. cd part1
+6. npm install
+7. npm run start 
