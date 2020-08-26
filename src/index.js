@@ -7,8 +7,11 @@ import axios from 'axios';
 axios.get('http://localhost:3001/persons').then((response) => {
   const persons = response.data;
   console.log(persons);
+
+  // passing the data from db as a props
   ReactDOM.render(<App persons={persons} />, document.getElementById('root'));
 });
-// passing the data from db as a props
+
+//showing error if not found
 const promise2 = axios.get('http://localhost:3001/foobar');
 console.log(promise2);
