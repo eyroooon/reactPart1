@@ -3,13 +3,8 @@ import Name from './components/Name';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 
-const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' },
-  ]);
+const App = (props) => {
+  const [persons, setPersons] = useState(props.persons);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [showAll, setShowAll] = useState(persons);
@@ -53,16 +48,22 @@ const App = () => {
       (person) => person.name.indexOf(event.target.value) >= 0 // checking if persons name have event.targetv.value as a substring
     );
     setShowAll(newShowAll);
-    console.log(showAll)
+    console.log(showAll);
   };
 
   //rendered output
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter filteredPerson={filteredPerson} /> 
+      <Filter filteredPerson={filteredPerson} />
       <h2>Add New</h2>
-      <PersonForm addName = {addName} newName = {newName} handleNameChange = {handleNameChange} handleNumberChange = { handleNumberChange} newNumber = { newNumber} />
+      <PersonForm
+        addName={addName}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        handleNumberChange={handleNumberChange}
+        newNumber={newNumber}
+      />
       <h2>Numbers</h2>
       <Name persons={showAll} />
     </div>
