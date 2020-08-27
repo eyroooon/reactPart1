@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Name from './components/Name';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
+import servicePerson from './services/notes';
 
 const App = (props) => {
   const [persons, setPersons] = useState(props.persons);
@@ -17,7 +18,9 @@ const App = (props) => {
 
   const addName = (event) => {
     const isExist =
-      persons.find((person) => person.name === newName) !== undefined; // to find if new name exist on the object
+      persons.find(
+        (person) => person.name === newName && person.number === newNumber
+      ) !== undefined; // to find if new name exist on the object
 
     //Conditional statement for adding the name
     if (isExist) {
@@ -28,10 +31,12 @@ const App = (props) => {
         name: newName,
         number: newNumber,
       };
-      setPersons(persons.concat(nameObject));
-      setShowAll(showAll.concat(nameObject));
-      setNewName('');
-      setNewNumber('');
+      servicePerson.create(nameObject).then((returnedName) => {
+        setPersons(persons.concat(returnedName));
+        setShowAll(showAll.concat(returnedName));
+        setNewName('');
+        setNewNumber('');
+      });
     }
   };
 
@@ -51,6 +56,20 @@ const App = (props) => {
     console.log(showAll);
   };
 
+  //functio for deleting contact
+  const deleteContact = (id) => {
+    const person = persons.find((person) => (person.id = id));
+    const result = window.confirm(
+      `are you sure you want to delete ${person.name} contact info?`
+    );
+    if (result) {
+      servicePerson.remove(id).then((returnedNames) => {
+        setPersons(returnedNames);
+        setShowAll(returnedNames);
+      });
+    }
+  };
+
   //rendered output
   return (
     <div>
@@ -65,7 +84,7 @@ const App = (props) => {
         newNumber={newNumber}
       />
       <h2>Numbers</h2>
-      <Name persons={showAll} />
+      <Name deleteContact={deleteContact} persons={showAll} />
     </div>
   );
 };

@@ -9,6 +9,3 @@ axios.get('http://localhost:3001/persons').then((response) => {
   console.log(persons);
   ReactDOM.render(<App persons={persons} />, document.getElementById('root'));
 });
-// passing the data from db as a props
-const promise2 = axios.get('http://localhost:3001/foobar');
-console.log(promise2);
